@@ -1,0 +1,23 @@
+{"Time":"2023-07-12T10:22:56.939552+08:00","Action":"run","Package":"exmaple/src/test","Test":"TestAdd"}
+{"Time":"2023-07-12T10:22:56.941354+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestAdd","Output":"=== RUN   TestAdd\n"}
+{"Time":"2023-07-12T10:22:56.941928+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestAdd","Output":"--- PASS: TestAdd (0.00s)\n"}
+{"Time":"2023-07-12T10:22:56.941951+08:00","Action":"pass","Package":"exmaple/src/test","Test":"TestAdd","Elapsed":0}
+{"Time":"2023-07-12T10:22:56.941978+08:00","Action":"run","Package":"exmaple/src/test","Test":"TestMul"}
+{"Time":"2023-07-12T10:22:56.941983+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestMul","Output":"=== RUN   TestMul\n"}
+{"Time":"2023-07-12T10:22:56.941988+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestMul","Output":"    compute_test.go:25: Mul函数参数:10 20, 期望: 300, 实际: 200\n"}
+{"Time":"2023-07-12T10:22:56.942005+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestMul","Output":"--- FAIL: TestMul (0.00s)\n"}
+{"Time":"2023-07-12T10:22:56.942009+08:00","Action":"fail","Package":"exmaple/src/test","Test":"TestMul","Elapsed":0}
+{"Time":"2023-07-12T10:22:56.942013+08:00","Action":"run","Package":"exmaple/src/test","Test":"TestDiv"}
+{"Time":"2023-07-12T10:22:56.942017+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestDiv","Output":"=== RUN   TestDiv\n"}
+{"Time":"2023-07-12T10:22:56.942021+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestDiv","Output":"    compute_test.go:36: Div函数参数:10 20, 期望: 2, 实际: 0\n"}
+{"Time":"2023-07-12T10:22:56.942025+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestDiv","Output":"--- FAIL: TestDiv (0.00s)\n"}
+{"Time":"2023-07-12T10:22:56.942029+08:00","Action":"fail","Package":"exmaple/src/test","Test":"TestDiv","Elapsed":0}
+{"Time":"2023-07-12T10:22:56.942033+08:00","Action":"run","Package":"exmaple/src/test","Test":"TestSkip"}
+{"Time":"2023-07-12T10:22:56.942036+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestSkip","Output":"=== RUN   TestSkip\n"}
+{"Time":"2023-07-12T10:22:56.94204+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestSkip","Output":"    compute_test.go:47: Skipping testing\n"}
+{"Time":"2023-07-12T10:22:56.942049+08:00","Action":"output","Package":"exmaple/src/test","Test":"TestSkip","Output":"--- SKIP: TestSkip (0.00s)\n"}
+{"Time":"2023-07-12T10:22:56.942053+08:00","Action":"skip","Package":"exmaple/src/test","Test":"TestSkip","Elapsed":0}
+{"Time":"2023-07-12T10:22:56.942056+08:00","Action":"output","Package":"exmaple/src/test","Output":"FAIL\n"}
+{"Time":"2023-07-12T10:22:56.94206+08:00","Action":"output","Package":"exmaple/src/test","Output":"coverage: 20.0% of statements\n"}
+{"Time":"2023-07-12T10:22:56.942276+08:00","Action":"output","Package":"exmaple/src/test","Output":"FAIL\texmaple/src/test\t0.659s\n"}
+{"Time":"2023-07-12T10:22:56.942288+08:00","Action":"fail","Package":"exmaple/src/test","Elapsed":0.659}
