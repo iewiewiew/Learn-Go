@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package main;
+
+/**
+安装 protobuf Go 库
+go get google.golang.org/protobuf/cmd/protoc-gen-go
+go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+这个命令会将 `protoc-gen-go` 和 `protoc-gen-go-grpc` 安装到 `$GOPATH/bin` 目录中
+检查 `echo $GOPATH/bin`
+检查 protoc-gen-go 是否正确安装 `which protoc-gen-go`
+
+Mac 安装 protoc
+brew install protobuf
+protoc --version
+
+使用 protoc-gen-go 插件来生成 Go 代码
+protoc --go_out=. person.proto
+ */
+
+message Person {
+  string name = 1;
+  int32 age = 2;
+  string gender = 3;
+  string address = 4;
+}
+
+// 使用 protoc-gen-go 插件来生成 Go 代码：protoc --go_out=. person.proto
