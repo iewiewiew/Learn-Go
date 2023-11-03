@@ -56,4 +56,17 @@ func main() {
 
 	delete(l, "name")
 	fmt.Println("删除后", l)
+
+	// 5、切片
+	// 创建一个整型切片
+	var numbers = []int{1, 2, 3, 4, 5}
+
+	// 输出切片的内容
+	fmt.Println("切片的内容：", numbers)
+
+	// 对切片进行追加操作
+	numbers = append(numbers, 6, 7, 8)
+
+	// 输出追加后的切片内容
+	fmt.Println("追加后的切片内容：", numbers)
 }

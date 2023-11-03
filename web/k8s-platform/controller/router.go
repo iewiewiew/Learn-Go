@@ -26,8 +26,22 @@ func (r *router) InitApiRouter(router *gin.Engine) {
 			"data": nil,
 		})
 	}).
+		//登录
+		POST("/api/login", Login.Auth).
 		GET("/api/k8s/workflows", Workflow.GetList).
+		//namespaces
 		GET("/api/k8s/namespaces", Namespace.GetNamespaces).
 		GET("/api/k8s/namespaces/detail", Namespace.GetNamespaceDetail).
-		DELETE("api/k8s/namespace/del", Namespace.DeleteNamespace)
+		//DELETE("api/k8s/namespace/del", Namespace.DeleteNamespace).
+		//pod操作
+		GET("/api/k8s/pods", Pod.GetPods).
+		GET("/api/k8s/pod/detail", Pod.GetPodDetail).
+		//DELETE("/api/k8s/pod/del", Pod.DeletePod).
+		PUT("/api/k8s/pod/update", Pod.UpdatePod).
+		GET("/api/k8s/pod/container", Pod.GetPodContainer).
+		GET("/api/k8s/pod/log", Pod.GetPodLog).
+		GET("/api/k8s/pod/numnp", Pod.GetPodNumPerNp).
+		//node操作
+		GET("/api/k8s/nodes", Node.GetNodes).
+		GET("/api/k8s/node/detail", Node.GetNodeDetail)
 }

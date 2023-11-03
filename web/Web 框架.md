@@ -77,6 +77,23 @@ gin.SetMode(gin.ReleaseMode)
 // 或者 设置debug模式
 gin.SetMode(gin.DebugMode)
 
+5.3. 常用的 gin.Context 方法
+
+1. c.JSON：发送 JSON 响应。
+2. c.IndentedJSON：发送带缩进格式的 JSON 响应。
+3. c.String：发送文本响应。
+4. c.HTML：发送 HTML 响应。
+5. c.Redirect：执行重定向。
+6. c.Param：获取 URL 参数。
+7. c.Query：获取 URL 查询参数。
+8. c.PostForm：获取表单数据。
+9. c.Bind：将请求的数据绑定到结构体。
+10. c.ShouldBindJSON：将请求的 JSON 数据绑定到结构体。
+11. c.Abort：终止请求处理。
+12. c.Next：调用下一个处理程序。
+13. c.GetHeader：获取请求头信息。
+14. c.SetCookie：设置响应的 Cookie。
+15. c.Status：设置响应状态码。
 
 
 ## 二、Beego 框架

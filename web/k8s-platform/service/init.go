@@ -27,6 +27,27 @@ func (k *k8s) Init() {
 	if err != nil {
 		panic("创建k8s配置失败，" + err.Error())
 	}
+
+	/**
+	// 创建自定义的 http.Transport
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true, // 跳过证书校验
+		},
+	}
+
+	// 创建 http.Client，并设置自定义的 Transport
+	client := &http.Client{
+		Timeout:   time.Second * 10,
+		Transport: tr,
+	}
+
+	// 将自定义的 http.Client 设置到 Kubernetes 客户端配置中
+	conf.WrapTransport = func(rt http.RoundTripper) http.RoundTripper {
+		return client.Transport
+	}
+	*/
+
 	//kubernetes.NewForConfig 函数用于根据给定的 rest.Config 对象创建一个 kubernetes.Clientset 客户端。
 	clientSet, err := kubernetes.NewForConfig(conf)
 	if err != nil {

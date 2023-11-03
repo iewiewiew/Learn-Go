@@ -1,6 +1,7 @@
 package service
 
 import (
+	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"sort"
 	"strings"
@@ -126,4 +127,52 @@ func (n namespaceCell) GetCreation() time.Time {
 
 func (n namespaceCell) GetName() string {
 	return n.Name
+}
+
+type configMapCell corev1.ConfigMap
+
+func (c configMapCell) GetCreation() time.Time {
+	return c.CreationTimestamp.Time
+}
+
+func (c configMapCell) GetName() string {
+	return c.Name
+}
+
+//实现Deployment的DataCell接口
+type deploymentCell appsv1.Deployment //appsv1 "k8s.io/api/apps/v1"
+func (d deploymentCell) GetCreation() time.Time {
+	return d.CreationTimestamp.Time
+}
+func (d deploymentCell) GetName() string {
+	return d.Name
+}
+
+//实现Service的DataCell接口
+type serviceCell corev1.Service //corev1 "k8s.io/api/core/v1"
+func (s serviceCell) GetCreation() time.Time {
+	return s.CreationTimestamp.Time
+}
+func (s serviceCell) GetName() string {
+	return s.Name
+}
+
+type nodeCell corev1.Node
+
+func (n nodeCell) GetCreation() time.Time {
+	return n.CreationTimestamp.Time
+}
+
+func (n nodeCell) GetName() string {
+	return n.Name
+}
+
+type pvCell corev1.PersistentVolume
+
+func (p pvCell) GetCreation() time.Time {
+	return p.CreationTimestamp.Time
+}
+
+func (p pvCell) GetName() string {
+	return p.Name
 }

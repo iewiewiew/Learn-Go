@@ -14,7 +14,8 @@
 
 
 
-### 目录结构
+## 一、目录结构
+
 - config：定义全局配置，如监听地址、管理员账号等。
 - controller：controller层，定义路由规则，及接口入参和响应。
 - service：服务层，处理接口的业务逻辑。
@@ -28,54 +29,53 @@
 
 
 
-### 详细步骤
-创建目录
-mkdir {config, controller, dao, db, midile, model, servce, utils}
+## 二、详细步骤
 
-批量下载依赖 注：在此项目行不通，需使用go get下载单个依赖
+### 2.1 后端
+
+**2.1.1 前置准备**
+
+创建目录  
+`mkdir {config, controller, dao, db, midile, model, service, utils}`
+
+批量下载依赖 注：在此项目行不通，需使用 `go get` 下载单个依赖  
+```
 go list -f '{{ join .Imports "\n" }}' ./... | grep -v "$(go list -f '{{ join .TestImports "\n" }}' ./...)" | grep -v "$(go list -f '{{ join .XTestImports "\n" }}' ./...)" | sort -u | xargs go get -v
+```
 
-下载单个依赖
-go get <依赖名称>
+下载单个依赖  
+`go get <依赖名称>`
 
-初始化项目
-go mod init k8s-platform
+初始化项目  
+`go mod init k8s-platform`
 
-定义常量 config/config.go
+**2.2.2 项目开发**
 
-定义 service/init.go
+1. 定义常量 config/config.go
+2. 定义 service/init.go
+3. 定义 main.go
+4. 定义 service/dataselector.go
+5. 定义 service/namespace.go
+6. 定义 controller/namespace.go
+7. 定义 controller/router.go
+8. 定义 db.go
+9. 定义 model/workflow.go
+10. 定义 dao/workflow.go
+11. 定义 service/workflow.go
+12. 定义 controller/workflow.go
+13. 定义 utils/jwt.go
+14. 定义 middle/jwt.go
+15. 在 mian.go 进行调用
 
-创建 main.go
+**2.1.3 本地启动服务**  
+kill -9 `lsof -i:9093 |awk '{print $2}' |tail -1` & go run main.go  
 
-定义 service/dataselector.go
+**2.1.4 访问接口**
+- http://127.0.0.1:9093/api/k8s/namespaces
+- http://127.0.0.1:9093/api/k8s/workflows?filter_name=&namespace=default&page=1&limit=10
 
-定义 service/namespace.go
+**2.1.5 常用方法**
 
-定义 controller/namespace.go
-
-定义 controller/router.go
-
-定义 db.go
-
-定义 model/workflow.go
-
-定义 dao/workflow.go
-
-定义 service/workflow.go
-
-定义 controller/workflow.go
-
-本地启动服务
-kill -9 `lsof -i:9093 |awk '{print $2}' |tail -1` & go run main.go
-kill -9 `lsof -i:8080 |awk '{print $2}' |tail -1` & go run main.go
-
-访问接口
-http://127.0.0.1:9093/api/k8s/namespaces
-http://127.0.0.1:9093/api/k8s/workflows?filter_name=&namespace=default&page=1&limit=10
-
-
-
-### 常用方法
 ```
 //获取pod列表
 podList, err := K8s.ClientSet.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{})
@@ -95,7 +95,61 @@ deployment, err = K8s.ClientSet.AppsV1().Deployments(namespace).Patch(context.TO
 
 
 
-### 项目部署
+### 2.2 前端
+
+**2.2.1 前置准备**
+
+安装 vue  
+`npm install -g @vue/cli`
+
+初始化项目  
+`vue init webpack k8s-platform-fe`
+
+运行项目  
+`cd k8s-platform-fe`
+`npm run dev`
+
+访问地址  
+http://localhost:8081/#/
+
+安装依赖
 ```
+npm install element-ui -S
+npm install element-plus --legacy-peer-deps
+npm install nprogress
+npm install jsonwebtoken
+npm install @vue/shared --legacy-peer-deps
+```
+
+**2.2.2 项目开发**
+
+1. 添加 vue.config.js
+2. 修改 main.js
+3. 添加 src/utils/request.js
+4. 添加 assets
+5. 添加 src/views/
+6. 修改 src/router/index.js
+
+
+
+## 三、项目部署
+```
+安装适用于Linux x86架构的交叉编译工具链
+brew install FiloSottile/musl-cross/musl-cross
+
+进入的Go项目的根目录，设置环境变量
+export GOOS=linux
+export GOARCH=386
+
+构建项目
+go build -o build/main main.go
+
+将编译好的二进制文件复制到服务器上
+scp build/main root@127.0.0.1:/usr/local/bin/
+
+安装Go环境
 yum -y install golang
+
+在服务器上启动服务
+nohup /usr/local/bin/main &
 ```

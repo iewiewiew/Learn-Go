@@ -1,5 +1,7 @@
 package animal
 
+import "fmt"
+
 /**
  *@author       weimenghua
  *@time         2022-07-18 12:36
@@ -25,4 +27,8 @@ func (a Animal) FavorFood() string {
 
 func (a Animal) GetName() string {
 	return a.name
+}
+
+func main() {
+	fmt.Printf(NewAnimal("Tiger").name)
 }

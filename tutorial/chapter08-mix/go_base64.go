@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 /**
@@ -12,7 +14,7 @@ import (
  * 参考资料：https://gobyexample-cn.github.io/base64-encoding
  */
 
-func main() {
+func base64_example() {
 	data := "abc"
 
 	sEnc := base64.StdEncoding.EncodeToString([]byte(data))
@@ -20,4 +22,18 @@ func main() {
 
 	sDec, _ := base64.StdEncoding.DecodeString(sEnc)
 	fmt.Println(string(sDec))
+}
+
+func UnicodeDecode(raw string) (string, error) {
+	str, err := strconv.Unquote(strings.Replace(strconv.Quote(raw), `\\u`, `\u`, -1))
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf(str)
+	return str, nil
+}
+
+func main() {
+	base64_example()
+	UnicodeDecode("aa")
 }

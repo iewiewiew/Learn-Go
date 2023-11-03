@@ -7,16 +7,19 @@
 > Description：
 
 **参考资料**  
-[Go 官网](https://golang.google.cn/doc/)  
-[Go 下载](https://golang.google.cn/dl/)  
-[Go 网址导航](https://hao.studygolang.com/)  
-[Go 系列教程](https://studygolang.com/subject/2)  
-[Go 语言入门教程汇总篇](https://mp.weixin.qq.com/s/ONE4afDx6QAzmdBDKGhdxw)   
-[golang-tutorial](https://github.com/nonfu/golang-tutorial)  
-[learngo](https://github.com/inancgumus/learngo)  
-[gobyexample-cn](https://gobyexample-cn.github.io/)  
-[LearnGolang](https://github.com/LearnGolang/LearnGolang)    
-[go-by-example](https://www.kancloud.cn/itfanr/go-by-example/81617)
+- [Go 官网](https://golang.google.cn/doc/)  
+- [Go 下载](https://golang.google.cn/dl/)  
+- [Go 网址导航](https://hao.studygolang.com/)  
+- [Go 系列教程](https://studygolang.com/subject/2)  
+- [Go 语言入门教程汇总篇](https://mp.weixin.qq.com/s/ONE4afDx6QAzmdBDKGhdxw)  
+- [Go语言进阶，提升必备](https://mp.weixin.qq.com/s/8IDJCE2OOHlic7wsBIfZVA)
+- [gobyexample-cn](https://gobyexample-cn.github.io/)  
+- [go-by-example](https://www.kancloud.cn/itfanr/go-by-example/81617)
+- [LearnGolang](https://github.com/LearnGolang/LearnGolang)  
+- [golang-tutorial](https://github.com/nonfu/golang-tutorial)    
+- [learngo](https://github.com/inancgumus/learngo)  
+- [gin-vue-admin](https://github.com/flipped-aurora/gin-vue-admin)  
+- [go-ldap-admin](https://gitee.com/eryajf-world/go-ldap-admin)
 
 
 
@@ -119,6 +122,8 @@ go get <package>
 
 使用 `go list` 命令列出项目的所有依赖包，并使用 `go get` 命令批量安装这些依赖包
 go list -f '{{ join .Imports "\n" }}' ./... | grep -v "$(go list -f '{{ join .TestImports "\n" }}' ./...)" | grep -v "$(go list -f '{{ join .XTestImports "\n" }}' ./...)" | sort -u | xargs go get -v
+
+go mod download
 ```
 
 ### 2.2 目录结构
@@ -269,6 +274,13 @@ $ make test
 $ make clean
 ```
 
+获取项目版本信息的命令字符串  
+```
+define get_version
+$(shell git describe --tags --always --dirty)
+endef
+```
+
 
 
 ### 3.4 依赖管理器
@@ -299,7 +311,28 @@ $ go mod tidy
 
 ### 3.5 零散记录(需调整)
 
-### nil
+#### 结构体
+
+在Go语言中，结构体（struct）是一种用户自定义的复合数据类型，用于封装一组相关的字段。结构体可以包含零个或多个字段，每个字段可以是不同的数据类型。结构体的定义形式如下：
+
+```go
+type Person struct {
+    Name string
+    Age  int
+}
+```
+
+理解Go结构体的关键概念包括：
+
+1. **定义结构体**：使用`type`关键字来定义一个新的结构体类型。
+2. **结构体字段**：结构体可以包含零个或多个字段，每个字段有一个字段名和对应的数据类型。
+3. **实例化结构体**：通过结构体类型可以创建结构体的实例（也称为结构体变量）。例如：`var p Person`。
+4. **访问结构体字段**：使用`.`操作符来访问结构体实例的字段，例如：`p.Name`。
+5. **匿名结构体**：可以定义没有字段名的结构体，用于临时的数据封装。
+
+结构体在Go语言中被广泛应用，用于表示复杂的数据结构，如数据库记录、HTTP请求/响应等。结构体提供了一种组织和封装数据的方式，有助于编写清晰、可维护的代码。
+
+#### nil
 
 在 Go 语言中，nil 表示一个指针类型的零值，它表示指针不指向任何有效的内存地址。nil 可以用于表示任何指针类型的变量，比如指向一个结构体、数组、切片、函数等的指针。
 
@@ -321,7 +354,7 @@ if data != nil {
 }
 ```
 
-### defer
+#### defer
 
 在 Go 中，defer 语句用于在函数返回时执行一些操作。defer 语句可以被用于释放资源、清理变量、记录日志、统计执行时间等诸多场景。  
 注意，当函数中有多个 defer 语句时，它们会按照后进先出（LIFO）的顺序执行。也就是说，最后一个 defer 语句会最先执行，而第一个 defer 语句会最后执行。
@@ -335,11 +368,11 @@ func main() {
 }
 ```
 
-### 指针
+#### 指针
 
 在 Go 语言中，& 符号用于取一个对象的地址。如果在一个对象前加上 & 符号，表示获取该对象的地址，并返回一个指向该地址的指针。因此，将 & 用于对象前，可以得到该对象的指针。
 
-在 Go 语言中，指针类型以 * 开头，例如 *int 表示指向 int 类型的指针。因此，如果一个函数的参数类型是 *SomeType，那么它可以接受 SomeType 类型的指针作为参数。
+在 Go 语言中，指针类型以 *（星号） 开头，例如 *int 表示指向 int 类型的指针。因此，如果一个函数的参数类型是 *SomeType，那么它可以接受 SomeType 类型的指针作为参数。
 
 通过将对象的地址传递给函数，可以在函数内部修改对象的值，因为函数拥有指向该对象的指针。这种方式可以用于实现不同的数据结构，如链表和树等。
 
@@ -410,8 +443,27 @@ file, err := os.OpenFile(repoPath+"/file.txt", os.O_WRONLY|os.O_CREATE|os.O_TRUN
 - os.O_TRUNC: 如果文件存在，并且打开模式为写入模式，则截断文件内容为零长度。
 - 0644 是文件权限，它指定了新创建的文件的权限。在这个例子中，它表示所有者具有读和写的权限，而其他用户只具有读的权限。
 
+当定义一个方法时，可以为其指定一个接收器（Receiver），以将该方法与特定的类型关联起来。下面是一个示例，展示了一个名为 Person 的结构体类型，并为其定义了一个接收器方法 SayHello()：
+```
+package main
 
-### 工作池
+import "fmt"
+
+type Person struct {
+name string
+}
+
+func (p Person) SayHello() {
+fmt.Printf("Hello, my name is %s\n", p.name)
+}
+
+func main() {
+person := Person{name: "Alice"}
+person.SayHello()
+}
+```
+
+#### 工作池
 
 Golang 的工作池（Worker Pool）是一种并发设计模式，用于管理和复用一组固定数量的 goroutine（协程），以处理并发任务。工作池可以提高并发执行任务的效率，避免因频繁创建和销毁 goroutine 而产生的开销，同时限制并发任务的数量，以控制系统资源的使用。
 
@@ -470,10 +522,49 @@ DROP TABLE users;
 goose -dir migrations postgres "user=your_user password=your_password dbname=your_db sslmode=disable" up
 ```
 
+#### go doc 查看代码文档
+
+```
+查看特定包的文档
+命令：go doc <package>
+例子：go doc fmt
+
+查看特定类型、函数或方法的文档
+命令：go doc <package>.<Type/Function/Method>
+```
+
+#### godoc 生成代码文档
+
+```
+安装 godoc
+go get golang.org/x/tools/cmd/godoc
+
+运行 godoc
+godoc -http=:6060
+```
+
+#### swag 文档管理
+
+```
+安装依赖
+go get -u github.com/swaggo/swag/cmd/swag
+go get -u github.com/iris-contrib/swagger/v12@master
+
+获取模块的路径
+go list -f '{{.Dir}}' -m github.com/swaggo/swag
+# /Users/menghuawei/IdeaProjects/my-project/Learn-Go/pkg/mod/github.com/swaggo/swag@v1.16.2
+
+在项目目录下执行 swag init 命令，生成相关的 yaml 和 html 文件
+```
+
+#### Mapstructure
+
+Mapstructure是一个Go语言的包，用于将map类型的结构体或结构体类型的map进行转换。它可以将一个map转换为一个结构体，或者将一个结构体转换为一个map。使用mapstructure可以方便地将来自外部的数据源（如配置文件、数据库等）中的数据转换为结构化的Go数据类型，以便在程序中进行处理和使用。它通过定义一个结构体，并使用mapstructure标签指定map中的键与结构体字段的映射关系，从而实现map到结构体的转换。同样，也可以使用结构体转换为map的方式。
+
+
 
 
 ## 四、Go 框架
 
 常用 [Web 框架](../web/Web 框架.md)：Gin、Echo、Bali。
-
 
